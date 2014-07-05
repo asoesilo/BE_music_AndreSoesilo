@@ -2,9 +2,20 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config/config');
+var fs = require('fs');
 
 // Connect to Mongo DB
 mongoose.connect(config.db);
+
+// Bootstrap models
+var models_path = __dirname + '/app/models'
+fs.readdirSync(models_path).forEach(function (file) {
+  if (file.indexOf('.js') !== -1) {
+    require(models_path + '/' + file);
+  }
+});
+
+var populator = require('./lib/populator');
 
 // Initialize Express App
 var app = express();
@@ -20,7 +31,7 @@ app.use(function(req, res, next) {
 
 // Development error handler
 // Will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({'error': err.message, 'stack': err});
@@ -34,9 +45,16 @@ app.use(function(err, req, res, next) {
   res.json({'error': err.message});
 });
 
-var port = process.env.PORT || config.port || 3000;
-app.listen(port);
-
-console.log('BE Music API server started');
+// Populate DB
+populator.populateDB(function(err) {
+  if(err) {
+    // Error in populating DB
+    console.log('Error in populating DB');
+    throw new Error(err);
+  }
+  // Start listening to port
+  app.listen(config.port);
+  console.log('BE Music API server started');
+});
 
 module.exports = app;
