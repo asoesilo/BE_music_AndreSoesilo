@@ -26,6 +26,10 @@ describe('POST /follow', function() {
     });
   });
 
+  // Returns a function that validates the specified followee's ID
+  // either exists or not exists in the user's list
+  // If expected is true, validate for existence; Otherwise,
+  // validate for non-existence
   var userContainsFolloweeID = function(expected, followeeID) {
     return function() {
       User.findOne({_id: from._id}, function(err, user) {
@@ -41,18 +45,18 @@ describe('POST /follow', function() {
   };
 
   describe('valid parameters', function() {
-    it('should add followee into user list of followee', function(done) {
+    it('adds followee into user list of followee', function(done) {
       request(app)
-      .post('/follow')
-      .send({from: from._id, to: to._id})
-      .expect(200)
-      .expect(userContainsFolloweeID(true, to._id))
-      .end(done);
+        .post('/follow')
+        .send({from: from._id, to: to._id})
+        .expect(200)
+        .expect(userContainsFolloweeID(true, to._id))
+        .end(done);
     });
   });
 
   describe('invalid parameters', function() {
-    it('should not add followee into user list of followee', function(done) {
+    it('does not add followee into user list of followee', function(done) {
       request(app)
         .post('/follow')
         .send({from: from._id, to: otherUser._id})

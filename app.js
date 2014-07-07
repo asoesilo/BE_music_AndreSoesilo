@@ -16,7 +16,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 });
 
 // Require routes
-var follow = require('./routes/follow');
+var routes = require('./routes/routes');
 
 var populator = require('./lib/populator');
 
@@ -27,7 +27,7 @@ var app = express();
 app.use(bodyParser.json());
 
 // Configure routes
-app.use('/follow', follow);
+app.use(routes);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
