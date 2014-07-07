@@ -15,10 +15,19 @@ fs.readdirSync(models_path).forEach(function (file) {
   }
 });
 
+// Require routes
+var follow = require('./routes/follow');
+
 var populator = require('./lib/populator');
 
 // Initialize Express App
 var app = express();
+
+// Parse json data to request body
+app.use(bodyParser.json());
+
+// Configure routes
+app.use('/follow', follow);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
