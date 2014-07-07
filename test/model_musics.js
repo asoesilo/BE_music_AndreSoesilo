@@ -3,20 +3,12 @@ var mongoose = require('mongoose');
 var should = require('should');
 
 // Get Music model
-var db = mongoose.connection;
 var Music = mongoose.model('Music');
 
 describe('Music', function() {
-  var currentMusic = null;
-
   describe('#save()', function() {
     beforeEach(function(done) {
-      Music.remove({}, function(err) {
-        if(err) {
-          return done(err);
-        }
-        return done();
-      });
+      Music.remove({}, done);
     });
 
     describe('valid parameters', function() {
