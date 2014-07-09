@@ -18,7 +18,7 @@ var UserSchema = new Schema({
   }],
   // list of music genre this user has listened to and its count
   musicGenresListened: [{
-    genreName: {
+    _id: {
       type: String,
       trim: true
     },
@@ -75,7 +75,7 @@ UserSchema.methods = {
     music.genres.forEach(function(name) {
       // Find genre from list of music genres listened to
       var genre = _.find(self.musicGenresListened, function(element) {
-        return element.genreName === name;
+        return element._id === name;
       });
 
       if(genre) {
@@ -84,7 +84,7 @@ UserSchema.methods = {
       }
       else {
         // Genre not found, so add it to list
-        self.musicGenresListened.push({genreName: name, count: 1});
+        self.musicGenresListened.push({_id: name, count: 1});
       }
     });
 

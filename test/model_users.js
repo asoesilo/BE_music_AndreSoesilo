@@ -164,7 +164,7 @@ describe('User', function() {
       it('adds all music genres to list of genres listened with count of one', function(done) {
         music1.genres.forEach(function(name) {
           var genre = _.find(user.musicGenresListened, function(element) {
-            return element.genreName === name;
+            return element._id === name;
           });
           should.exist(genre);
           (genre.count).should.equal(1);
@@ -192,7 +192,7 @@ describe('User', function() {
           function(done) {
             music2.genres.forEach(function(name) {
               var genre = _.find(user.musicGenresListened, function(element) {
-                return element.genreName === name;
+                return element._id === name;
               });
               should.exist(genre);
               if(music1.genres.indexOf(name) >= 0) {
