@@ -1,7 +1,7 @@
 Describe in a high level the solution you have in mind
 > For the recommendation engine, I collected the list of songs that the user's followees had listened to and gave each song with a relevance point. The points were calculated based on the genres of the song and the genres of songs that the user had listened to. If there were enough songs to recommended using the followees song list
-
-The recommended song list was sorted based on the relevance points, and the top five songs were returned.
+>
+> The recommended song list was sorted based on the relevance points, and the top five songs were returned.
 
 What other data could you use to improve recommendations?
 > Other data that could improve recommendations include:
