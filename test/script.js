@@ -14,7 +14,20 @@ describe('Script', function() {
     });
   });
 
-  it('test', function(done) {
-    done();
+  it('get recommended list of music', function(done) {
+    var userID = 'a';
+
+    request(app)
+      .get('/recommendations')
+      .send({user: userID})
+      .end(function(err, req) {
+        if(err) {
+          return done(err);
+        }
+
+        console.log("The recommended music list is:");
+        console.log(req.body.list);
+        done();
+      });
   });
 });
