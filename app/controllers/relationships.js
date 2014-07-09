@@ -20,6 +20,7 @@ var create = function(req, res, next) {
     if(err) {
       // Error in adding followee to user list
       // Forward error message
+      err.status = 400;
       return next(err);
     }
 
