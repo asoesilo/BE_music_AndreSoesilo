@@ -6,13 +6,14 @@ var should = require('should');
 var Music = mongoose.model('Music');
 
 describe('Music', function() {
-  describe('#save', function() {
-    beforeEach(function(done) {
-      Music.remove({}, done);
-    });
 
+  describe('#save', function() {
     describe('valid parameters', function() {
       var music = new Music({_id: 'music1', genres: ['rock', 'jazz', 'funk']});
+
+      after(function(done) {
+        Music.findOne({_id: music._id}).remove(done);
+      });
 
       it('should save without error', function(done) {
         music.save(done);
