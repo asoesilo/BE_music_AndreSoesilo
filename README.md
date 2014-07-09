@@ -10,6 +10,7 @@ It currently have three endpoints:
 
 MongoDB is expected to run in ./data folder, so please create this folder and set the --dbpath for mongo to this folder. The commands for this are:
 > mkdir ./data
+>
 > mongod --dbpath ./data
 
 To run the server, use the following command:
